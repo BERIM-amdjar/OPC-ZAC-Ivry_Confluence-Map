@@ -8,6 +8,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
         <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
@@ -25,7 +27,6 @@
         </div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
-        <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -35,11 +36,12 @@
         <script src="js/labels.js"></script>
         <script src="js/Control.OSMGeocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
         <script src="data/LOTsconstruction_0.js"></script>
-        <script src="data/Info_1.js"></script>
-        <script src="data/Runion_mobilit_110221_2.js"></script>
-        <script src="data/NotelectureCROPC_3.js"></script>
-        <script src="data/GeoCodingPluginResults_4.js"></script>
+        <script src="data/Travauxespacespublics_1.js"></script>
+        <script src="data/Travauxconstruction_2.js"></script>
+        <script src="data/RemarquesCarnetdephasage_3.js"></script>
+        <script src="data/ZacIvryConfleunceversionAlphamaj01032021_4.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -55,7 +57,7 @@
         });
         measureControl.addTo(map);
         var bounds_group = new L.featureGroup([]);
-        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
             maxZoom: 28
         });
@@ -68,10 +70,13 @@
         function pop_LOTsconstruction_0(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Layer'] !== null ? Autolinker.link(String(feature.properties['Layer'])) : '') + '</td>\
+                        <td colspan="2"><strong>Layer</strong><br />' + (feature.properties['Layer'] !== null ? Autolinker.link(String(feature.properties['Layer'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Phase'] !== null ? Autolinker.link(String(feature.properties['Phase'])) : '') + '</td>\
+                        <td colspan="2"><strong>Phase</strong><br />' + (feature.properties['Phase'] !== null ? Autolinker.link(String(feature.properties['Phase'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Horizon</strong><br />' + (feature.properties['Horizon'] !== null ? Autolinker.link(String(feature.properties['Horizon'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -90,21 +95,21 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(36,232,52,1.0)',
+                fillColor: 'rgba(88,226,95,1.0)',
             }
                     break;
                 case 'Phase 3':
                     return {
                 pane: 'pane_LOTsconstruction_0',
                 opacity: 1,
-                color: 'rgba(114,133,132,1.0)',
+                color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(165,191,221,1.0)',
+                fillColor: 'rgba(19,219,237,1.0)',
             }
                     break;
                 default:
@@ -118,7 +123,7 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(234,170,127,1.0)',
+                fillColor: 'rgba(206,48,40,1.0)',
             }
                     break;
             }
@@ -134,21 +139,118 @@
         });
         bounds_group.addLayer(layer_LOTsconstruction_0);
         map.addLayer(layer_LOTsconstruction_0);
-        function pop_Info_1(feature, layer) {
+        function pop_Travauxespacespublics_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Info'] !== null ? Autolinker.link(String(feature.properties['Info'])) : '') + '</td>\
+                        <td colspan="2"><strong>Nom voie</strong><br />' + (feature.properties['Nom voie'] !== null ? Autolinker.link(String(feature.properties['Nom voie'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Suivi'] !== null ? Autolinker.link(String(feature.properties['Suivi'])) : '') + '</td>\
+                        <td colspan="2"><strong>Tvx résea</strong><br />' + (feature.properties['Tvx résea'] !== null ? Autolinker.link(String(feature.properties['Tvx résea'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Tvx voirie</strong><br />' + (feature.properties['Tvx voirie'] !== null ? Autolinker.link(String(feature.properties['Tvx voirie'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Statut</strong><br />' + (feature.properties['Statut'] !== null ? Autolinker.link(String(feature.properties['Statut'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Info_1_0() {
+        function style_Travauxespacespublics_1_0() {
             return {
-                pane: 'pane_Info_1',
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Public works green.svg',
+            iconSize: [30.4, 30.4]
+        }),
+            }
+        }
+        map.createPane('pane_Travauxespacespublics_1');
+        map.getPane('pane_Travauxespacespublics_1').style.zIndex = 401;
+        map.getPane('pane_Travauxespacespublics_1').style['mix-blend-mode'] = 'normal';
+        var layer_Travauxespacespublics_1 = new L.geoJson(json_Travauxespacespublics_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Travauxespacespublics_1',
+            onEachFeature: pop_Travauxespacespublics_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Travauxespacespublics_1_0(feature));
+            },
+        });
+        var cluster_Travauxespacespublics_1 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_Travauxespacespublics_1.addLayer(layer_Travauxespacespublics_1);
+
+        bounds_group.addLayer(layer_Travauxespacespublics_1);
+        cluster_Travauxespacespublics_1.addTo(map);
+        function pop_Travauxconstruction_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Nom LOT</strong><br />' + (feature.properties['Nom LOT'] !== null ? Autolinker.link(String(feature.properties['Nom LOT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Date PC</strong><br />' + (feature.properties['Date PC'] !== null ? Autolinker.link(String(feature.properties['Date PC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Début</strong><br />' + (feature.properties['Début'] !== null ? Autolinker.link(String(feature.properties['Début'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Livraison</strong><br />' + (feature.properties['Livraison'] !== null ? Autolinker.link(String(feature.properties['Livraison'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Travauxconstruction_2_0() {
+            return {
+                pane: 'pane_Travauxconstruction_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Building red.svg',
+            iconSize: [30.4, 30.4]
+        }),
+            }
+        }
+        map.createPane('pane_Travauxconstruction_2');
+        map.getPane('pane_Travauxconstruction_2').style.zIndex = 402;
+        map.getPane('pane_Travauxconstruction_2').style['mix-blend-mode'] = 'normal';
+        var layer_Travauxconstruction_2 = new L.geoJson(json_Travauxconstruction_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Travauxconstruction_2',
+            onEachFeature: pop_Travauxconstruction_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Travauxconstruction_2_0(feature));
+            },
+        });
+        var cluster_Travauxconstruction_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_Travauxconstruction_2.addLayer(layer_Travauxconstruction_2);
+
+        bounds_group.addLayer(layer_Travauxconstruction_2);
+        cluster_Travauxconstruction_2.addTo(map);
+        function pop_RemarquesCarnetdephasage_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Text</strong><br />' + (feature.properties['Text'] !== null ? Autolinker.link(String(feature.properties['Text'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RemarquesCarnetdephasage_3_0() {
+            return {
+                pane: 'pane_RemarquesCarnetdephasage_3',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
@@ -157,152 +259,68 @@
         }),
             }
         }
-        map.createPane('pane_Info_1');
-        map.getPane('pane_Info_1').style.zIndex = 401;
-        map.getPane('pane_Info_1').style['mix-blend-mode'] = 'normal';
-        var layer_Info_1 = new L.geoJson(json_Info_1, {
+        map.createPane('pane_RemarquesCarnetdephasage_3');
+        map.getPane('pane_RemarquesCarnetdephasage_3').style.zIndex = 403;
+        map.getPane('pane_RemarquesCarnetdephasage_3').style['mix-blend-mode'] = 'normal';
+        var layer_RemarquesCarnetdephasage_3 = new L.geoJson(json_RemarquesCarnetdephasage_3, {
             attribution: '<a href=""></a>',
-            pane: 'pane_Info_1',
-            onEachFeature: pop_Info_1,
+            pane: 'pane_RemarquesCarnetdephasage_3',
+            onEachFeature: pop_RemarquesCarnetdephasage_3,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_Info_1_0(feature));
+                return L.marker(latlng, style_RemarquesCarnetdephasage_3_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Info_1);
-        map.addLayer(layer_Info_1);
-        function pop_Runion_mobilit_110221_2(feature, layer) {
+        var cluster_RemarquesCarnetdephasage_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_RemarquesCarnetdephasage_3.addLayer(layer_RemarquesCarnetdephasage_3);
+
+        bounds_group.addLayer(layer_RemarquesCarnetdephasage_3);
+        cluster_RemarquesCarnetdephasage_3.addTo(map);
+        function pop_ZacIvryConfleunceversionAlphamaj01032021_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['Info'] !== null ? Autolinker.link(String(feature.properties['Info'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Suivi'] !== null ? Autolinker.link(String(feature.properties['Suivi'])) : '') + '</td>\
+                        <td colspan="2"><strong>id</strong><br />' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Runion_mobilit_110221_2_0() {
+        function style_ZacIvryConfleunceversionAlphamaj01032021_4_0() {
             return {
-                pane: 'pane_Runion_mobilit_110221_2',
-                radius: 10.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(253,191,111,1.0)',
+                pane: 'pane_ZacIvryConfleunceversionAlphamaj01032021_4',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Berim_EPDC logo.svg',
+            iconSize: [15.2, 15.2]
+        }),
             }
         }
-        map.createPane('pane_Runion_mobilit_110221_2');
-        map.getPane('pane_Runion_mobilit_110221_2').style.zIndex = 402;
-        map.getPane('pane_Runion_mobilit_110221_2').style['mix-blend-mode'] = 'normal';
-        var layer_Runion_mobilit_110221_2 = new L.geoJson(json_Runion_mobilit_110221_2, {
+        map.createPane('pane_ZacIvryConfleunceversionAlphamaj01032021_4');
+        map.getPane('pane_ZacIvryConfleunceversionAlphamaj01032021_4').style.zIndex = 404;
+        map.getPane('pane_ZacIvryConfleunceversionAlphamaj01032021_4').style['mix-blend-mode'] = 'normal';
+        var layer_ZacIvryConfleunceversionAlphamaj01032021_4 = new L.geoJson(json_ZacIvryConfleunceversionAlphamaj01032021_4, {
             attribution: '<a href=""></a>',
-            pane: 'pane_Runion_mobilit_110221_2',
-            onEachFeature: pop_Runion_mobilit_110221_2,
+            pane: 'pane_ZacIvryConfleunceversionAlphamaj01032021_4',
+            onEachFeature: pop_ZacIvryConfleunceversionAlphamaj01032021_4,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.shapeMarker(latlng, style_Runion_mobilit_110221_2_0(feature));
+                return L.marker(latlng, style_ZacIvryConfleunceversionAlphamaj01032021_4_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Runion_mobilit_110221_2);
-        map.addLayer(layer_Runion_mobilit_110221_2);
-        function pop_NotelectureCROPC_3(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Info'] !== null ? Autolinker.link(String(feature.properties['Info'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Suivi'] !== null ? Autolinker.link(String(feature.properties['Suivi'])) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
+        var cluster_ZacIvryConfleunceversionAlphamaj01032021_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_ZacIvryConfleunceversionAlphamaj01032021_4.addLayer(layer_ZacIvryConfleunceversionAlphamaj01032021_4);
 
-        function style_NotelectureCROPC_3_0() {
-            return {
-                pane: 'pane_NotelectureCROPC_3',
-                radius: 8.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(227,26,28,1.0)',
-            }
-        }
-        map.createPane('pane_NotelectureCROPC_3');
-        map.getPane('pane_NotelectureCROPC_3').style.zIndex = 403;
-        map.getPane('pane_NotelectureCROPC_3').style['mix-blend-mode'] = 'normal';
-        var layer_NotelectureCROPC_3 = new L.geoJson(json_NotelectureCROPC_3, {
-            attribution: '<a href=""></a>',
-            pane: 'pane_NotelectureCROPC_3',
-            onEachFeature: pop_NotelectureCROPC_3,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.shapeMarker(latlng, style_NotelectureCROPC_3_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_NotelectureCROPC_3);
-        map.addLayer(layer_NotelectureCROPC_3);
-        function pop_GeoCodingPluginResults_4(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['address:(0,0)'] !== null ? Autolinker.link(String(feature.properties['address:(0,0)'])) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_GeoCodingPluginResults_4_0() {
-            return {
-                pane: 'pane_GeoCodingPluginResults_4',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(171,103,129,1.0)',
-            }
-        }
-        map.createPane('pane_GeoCodingPluginResults_4');
-        map.getPane('pane_GeoCodingPluginResults_4').style.zIndex = 404;
-        map.getPane('pane_GeoCodingPluginResults_4').style['mix-blend-mode'] = 'normal';
-        var layer_GeoCodingPluginResults_4 = new L.geoJson(json_GeoCodingPluginResults_4, {
-            attribution: '<a href=""></a>',
-            pane: 'pane_GeoCodingPluginResults_4',
-            onEachFeature: pop_GeoCodingPluginResults_4,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_GeoCodingPluginResults_4_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_GeoCodingPluginResults_4);
-        map.addLayer(layer_GeoCodingPluginResults_4);
+        bounds_group.addLayer(layer_ZacIvryConfleunceversionAlphamaj01032021_4);
+        cluster_ZacIvryConfleunceversionAlphamaj01032021_4.addTo(map);
         var osmGeocoder = new L.Control.OSMGeocoder({
             collapsed: false,
             position: 'topright',
@@ -310,7 +328,7 @@
         });
         osmGeocoder.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/GeoCodingPluginResults_4.png" /> GeoCoding Plugin Results': layer_GeoCodingPluginResults_4,'<img src="legend/NotelectureCROPC_3.png" /> Note lecture CR OPC': layer_NotelectureCROPC_3,'<img src="legend/Runion_mobilit_110221_2.png" /> Réunion_mobilité_11-02-21': layer_Runion_mobilit_110221_2,'<img src="legend/Info_1.png" /> Info': layer_Info_1,'LOTs construction<br /><table><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_Phase20.png" /></td><td>Phase 2</td></tr><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_Phase31.png" /></td><td>Phase 3</td></tr><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_2.png" /></td><td></td></tr></table>': layer_LOTsconstruction_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/ZacIvryConfleunceversionAlphamaj01032021_4.png" /> Zac Ivry Confleunce - version Alpha (maj 01-03-2021)': cluster_ZacIvryConfleunceversionAlphamaj01032021_4,'<img src="legend/RemarquesCarnetdephasage_3.png" /> Remarques Carnet de phasage': cluster_RemarquesCarnetdephasage_3,'<img src="legend/Travauxconstruction_2.png" /> Travaux construction': cluster_Travauxconstruction_2,'<img src="legend/Travauxespacespublics_1.png" /> Travaux espaces publics': cluster_Travauxespacespublics_1,'LOTs construction<br /><table><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_Phase2A0.png" /></td><td>Phase 2A</td></tr><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_Phase2APhase31.png" /></td><td>Phase 2A - Phase 3</td></tr><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_2.png" /></td><td></td></tr></table>': layer_LOTsconstruction_0,}).addTo(map);
         setBounds();
         var i = 0;
         layer_LOTsconstruction_0.eachLayer(function(layer) {
@@ -326,27 +344,27 @@
               i++;
         });
         var i = 0;
-        layer_GeoCodingPluginResults_4.eachLayer(function(layer) {
+        layer_Travauxconstruction_2.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['address'] !== null?String('<div style="color: #000000; font-size: 12pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['address']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_GeoCodingPluginResults_4'});
+            layer.bindTooltip((layer.feature.properties['Nom LOT'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nom LOT']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Travauxconstruction_2'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
               i++;
         });
-        resetLabels([layer_LOTsconstruction_0,layer_GeoCodingPluginResults_4]);
+        resetLabels([layer_LOTsconstruction_0,layer_Travauxconstruction_2]);
         map.on("zoomend", function(){
-            resetLabels([layer_LOTsconstruction_0,layer_GeoCodingPluginResults_4]);
+            resetLabels([layer_LOTsconstruction_0,layer_Travauxconstruction_2]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_LOTsconstruction_0,layer_GeoCodingPluginResults_4]);
+            resetLabels([layer_LOTsconstruction_0,layer_Travauxconstruction_2]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_LOTsconstruction_0,layer_GeoCodingPluginResults_4]);
+            resetLabels([layer_LOTsconstruction_0,layer_Travauxconstruction_2]);
         });
         </script>
     </body>
