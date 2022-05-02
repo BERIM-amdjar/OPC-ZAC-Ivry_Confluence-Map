@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/Control.OSMGeocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/LOTsconstruction_0.js"></script>
+        <script src="data/Travauxespacespublics_1.js"></script>
+        <script src="data/Info_2.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_LOTsconstruction_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Layer</strong><br />' + (feature.properties['Layer'] !== null ? Autolinker.link(String(feature.properties['Layer'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Phase</strong><br />' + (feature.properties['Phase'] !== null ? Autolinker.link(String(feature.properties['Phase'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Horizon</strong><br />' + (feature.properties['Horizon'] !== null ? Autolinker.link(String(feature.properties['Horizon'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LOTsconstruction_0_0(feature) {
+            switch(String(feature.properties['Phase'])) {
+                case 'Phase 2':
+                    return {
+                pane: 'pane_LOTsconstruction_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(88,226,95,1.0)',
+            }
+                    break;
+                case 'Phase 3':
+                    return {
+                pane: 'pane_LOTsconstruction_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(19,219,237,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_LOTsconstruction_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,48,40,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LOTsconstruction_0');
+        map.getPane('pane_LOTsconstruction_0').style.zIndex = 400;
+        map.getPane('pane_LOTsconstruction_0').style['mix-blend-mode'] = 'normal';
+        var layer_LOTsconstruction_0 = new L.geoJson(json_LOTsconstruction_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_LOTsconstruction_0',
+            onEachFeature: pop_LOTsconstruction_0,
+            style: style_LOTsconstruction_0_0,
+        });
+        bounds_group.addLayer(layer_LOTsconstruction_0);
+        map.addLayer(layer_LOTsconstruction_0);
+        function pop_Travauxespacespublics_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Descrip'] !== null ? Autolinker.link(String(feature.properties['Descrip'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nature'] !== null ? Autolinker.link(String(feature.properties['Nature'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MOA/Entr.'] !== null ? Autolinker.link(String(feature.properties['MOA/Entr.'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Travauxespacespublics_1_0(feature) {
+            switch(String(feature.properties['Nature'])) {
+                case 'AEP':
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Public works blue.svg',
+            iconSize: [24.32, 24.32]
+        }),
+            }
+                    break;
+                case 'Aménagements':
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Public works black.svg',
+            iconSize: [30.4, 30.4]
+        }),
+            }
+                    break;
+                case 'Assainissement':
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Ass.svg',
+            iconSize: [24.32, 24.32]
+        }),
+            }
+                    break;
+                case 'ChU':
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Public works bChU.svg',
+            iconSize: [24.32, 24.32]
+        }),
+            }
+                    break;
+                case 'Electricité':
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Public works red.svg',
+            iconSize: [24.32, 24.32]
+        }),
+            }
+                    break;
+                case 'Telecom':
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Public works green.svg',
+            iconSize: [24.32, 24.32]
+        }),
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Public works green.svg',
+            iconSize: [30.4, 30.4]
+        }),
+            }
+                    break;
+                case 'Eclairage':
+                    return {
+                pane: 'pane_Travauxespacespublics_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Eclairage.svg',
+            iconSize: [30.4, 30.4]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Travauxespacespublics_1');
+        map.getPane('pane_Travauxespacespublics_1').style.zIndex = 401;
+        map.getPane('pane_Travauxespacespublics_1').style['mix-blend-mode'] = 'normal';
+        var layer_Travauxespacespublics_1 = new L.geoJson(json_Travauxespacespublics_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Travauxespacespublics_1',
+            onEachFeature: pop_Travauxespacespublics_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Travauxespacespublics_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Travauxespacespublics_1);
+        map.addLayer(layer_Travauxespacespublics_1);
+        function pop_Info_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? Autolinker.link(String(feature.properties['Info'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Suivi'] !== null ? Autolinker.link(String(feature.properties['Suivi'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Info_2_0() {
+            return {
+                pane: 'pane_Info_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Info_icon.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+        }
+        map.createPane('pane_Info_2');
+        map.getPane('pane_Info_2').style.zIndex = 402;
+        map.getPane('pane_Info_2').style['mix-blend-mode'] = 'normal';
+        var layer_Info_2 = new L.geoJson(json_Info_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Info_2',
+            onEachFeature: pop_Info_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Info_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Info_2);
+        map.addLayer(layer_Info_2);
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'topright',
+            text: 'Search',
+        });
+        osmGeocoder.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Info_2.png" /> Info': layer_Info_2,'Travaux espaces publics<br /><table><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_AEP0.png" /></td><td>AEP</td></tr><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_Amnagements1.png" /></td><td>Aménagements</td></tr><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_Assainissement2.png" /></td><td>Assainissement</td></tr><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_ChU3.png" /></td><td>ChU</td></tr><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_Electricit4.png" /></td><td>Electricité</td></tr><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_Telecom5.png" /></td><td>Telecom</td></tr><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_6.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Travauxespacespublics_1_Eclairage7.png" /></td><td>Eclairage</td></tr></table>': layer_Travauxespacespublics_1,'LOTs construction<br /><table><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_Phase2A0.png" /></td><td>Phase 2A</td></tr><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_Phase2APhase31.png" /></td><td>Phase 2A - Phase 3</td></tr><tr><td style="text-align: center;"><img src="legend/LOTsconstruction_0_2.png" /></td><td></td></tr></table>': layer_LOTsconstruction_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_LOTsconstruction_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Layer'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Layer']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_LOTsconstruction_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_LOTsconstruction_0]);
+        map.on("zoomend", function(){
+            resetLabels([layer_LOTsconstruction_0]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_LOTsconstruction_0]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_LOTsconstruction_0]);
+        });
+        </script>
+    </body>
+</html>
